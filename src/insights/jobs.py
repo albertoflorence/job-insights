@@ -1,4 +1,5 @@
 from typing import List, Dict
+import csv
 
 
 class ProcessJobs:
@@ -13,3 +14,8 @@ class ProcessJobs:
 
     def filter_by_multiple_criteria(self) -> List[dict]:
         pass
+
+    def read(self, path: str):
+        with open(path, 'r') as file:
+            read_data = csv.DictReader(file)
+            self.jobs_list = list(read_data)
