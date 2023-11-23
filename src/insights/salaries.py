@@ -6,11 +6,17 @@ class ProcessSalaries(ProcessJobs):
     def __init__(self):
         super().__init__()
 
+    def __get_salaries(self, salaryType) -> Union[int, str]:
+        salaries = [float(job.get(salaryType)) for job in self.jobs_list if job.get(salaryType).isdigit()]
+        return salaries
+
     def get_max_salary(self) -> int:
-        pass
+        salaries = self.__get_salaries('max_salary')
+        return max(salaries, default=0)
 
     def get_min_salary(self) -> int:
-        pass
+        salaries = self.__get_salaries('min_salary')
+        return min(salaries, default=0)
 
     def matches_salary_range(self, job: Dict, salary: Union[int, str]) -> bool:
         pass
