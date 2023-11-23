@@ -37,7 +37,13 @@ class ProcessSalaries(ProcessJobs):
 
         return min_salary <= salary <= max_salary
 
+    def try_matches_salary_range(self, job: Dict, salary: Union[int, str]) -> bool:
+        try:
+            return self.matches_salary_range(job, salary)
+        except ValueError:
+            return False
+
     def filter_by_salary_range(
         self, jobs: List[dict], salary: Union[str, int]
     ) -> List[Dict]:
-        pass
+        return [job for job in jobs if self.try_matches_salary_range(job, salary)]
