@@ -16,8 +16,15 @@ class ProcessJobs:
             jobs.add(job_type)
         return jobs
 
-    def filter_by_multiple_criteria(self) -> List[dict]:
-        pass
+    def filter_by_multiple_criteria(self, jobs, filter_criteria) -> List[dict]:
+        if not isinstance(jobs, list):
+            raise TypeError('jobs must be a list')
+        if not isinstance(filter_criteria, dict):
+            raise TypeError('criteria must be a dict')
+
+        result = list()
+        filtered_jobs = list(filter(lambda job: all(job[key] == value for key, value in filter_criteria.items()), jobs))
+        return filtered_jobs
 
     def read(self, path: str):
         with open(path, 'r') as file:
